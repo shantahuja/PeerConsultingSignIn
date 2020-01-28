@@ -22,7 +22,7 @@ export default class Navbar extends Component {
               </Link>
             </li>
           </ul>
-          <ul class="navbar-nav">
+          <ul className="navbar-nav">
             <NavBar />
           </ul>
         </div>

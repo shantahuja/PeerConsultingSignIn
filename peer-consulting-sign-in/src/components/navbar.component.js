@@ -1,14 +1,15 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import NavBar from "./NavBar";
 
 export default class Navbar extends Component {
   render() {
     return (
-      <nav className="navbar navbar-dark bg-dark navbar-expand-lg">
+      <nav className="navbar navbar-dark bg-dark navbar-expand-lg ">
         <Link to="/" className="navbar-brand">
           Peer Consulting Sign-In
         </Link>
-        <div className="collapse navbar-collapse">
+        <div className="collapse navbar-collapse justify-content-between">
           <ul className="navbar-nav mr-auto">
             <li className="navbar-item">
               <Link to="/" className="nav-link">
@@ -20,6 +21,9 @@ export default class Navbar extends Component {
                 Admin
               </Link>
             </li>
+          </ul>
+          <ul class="navbar-nav">
+            <NavBar />
           </ul>
         </div>
       </nav>

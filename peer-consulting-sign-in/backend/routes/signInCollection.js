@@ -21,4 +21,18 @@ router.route("/add").post((req, res) => {
     .catch(err => res.status(400).json("Error: " + err));
 });
 
+router.route("/:id").get((req, res) => {
+  signIn
+    .findById(req.params.id)
+    .then(signIn => res.json(signIn))
+    .catch(err => res.status(400).json("Error: " + err));
+});
+
+router.route("/:id").delete((req, res) => {
+  signIn
+    .findByIdAndDelete(req.params.id)
+    .then(() => res.json("Sign-In deleted."))
+    .catch(err => res.status(400).json("Error: " + err));
+});
+
 module.exports = router;

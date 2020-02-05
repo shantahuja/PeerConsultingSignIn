@@ -15,13 +15,16 @@ mongoose
   .connect(uri, {
     useNewUrlParser: true,
     useCreateIndex: true,
-    useUnifiedTopology: true
+    useUnifiedTopology: true,
+    user: "myUserAdmin",
+    pass: "OITAdmin"
   })
   .then(() => console.log("DB server connect"))
   .catch(e => console.log("DB error", e));
 const connection = mongoose.connection;
 connection.once("open", () => {
   console.log("MongoDB database connection established successfully");
+  console.log("Database connected:", uri);
 });
 
 const signInCollectionRouter = require("./routes/signInCollection");

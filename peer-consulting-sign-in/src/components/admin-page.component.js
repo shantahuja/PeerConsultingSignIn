@@ -7,12 +7,24 @@ const SignIn = props => (
     <td>{props.signIn.studentId}</td>
     <td>{props.signIn.date}</td>
     <td>{props.signIn.time}</td>
+    <td>
+      <a
+        href="#"
+        onClick={() => {
+          props.deleteSignIn(props.signIn._id);
+        }}
+      >
+        delete
+      </a>
+    </td>
   </tr>
 );
 
 export default class AdminPage extends Component {
   constructor(props) {
     super(props);
+
+    this.deleteSignIn = this.deleteSignIn.bind(this);
 
     this.state = {
       signInCollection: []
@@ -46,7 +58,13 @@ export default class AdminPage extends Component {
 
   signInCollection() {
     return this.state.signInCollection.map(currentSignIn => {
-      return <SignIn signIn={currentSignIn} key={currentSignIn._id} />;
+      return (
+        <SignIn
+          signIn={currentSignIn}
+          deleteSignIn={this.deleteSignIn}
+          key={currentSignIn._id}
+        />
+      );
     });
   }
 

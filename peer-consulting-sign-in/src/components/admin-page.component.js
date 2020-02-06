@@ -29,6 +29,19 @@ export default class AdminPage extends Component {
         console.log(error);
       });
   }
+  
+  deleteSignIn(id) {
+    axios
+      .delete("http://localhost:5000/signInCollection/" + id)
+      .then(res => console.log(res.data));
+    this.setState({
+      signInCollection: this.state.signInCollection.filter(el => el._id !== id)
+    });
+  }
+
+  deleteSignInCollection() {
+    axios.delete("http://localhost:5000/signInCollection/allIDs/");
+  }
 
   signInCollection() {
     return this.state.signInCollection.map(currentSignIn => {
@@ -75,6 +88,14 @@ export default class AdminPage extends Component {
           datas={datas}
           text="DOWNLOAD"
         />
+        <a
+          href="#"
+          onClick={() => {
+            this.deleteSignInCollection();
+          }}
+        >
+          delete
+        </a>
       </div>
     );
   }

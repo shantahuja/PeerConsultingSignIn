@@ -51,6 +51,11 @@ export default class AdminPage extends Component {
     });
   }
 
+  deleteSignInCollection() {
+    axios.delete("http://localhost:5000/signInCollection/deleteAll/");
+    window.location.reload();
+  }
+
   signInCollection() {
     return this.state.signInCollection.map(currentSignIn => {
       return (
@@ -102,6 +107,14 @@ export default class AdminPage extends Component {
           datas={datas}
           text="DOWNLOAD"
         />
+        <a
+          href="#"
+          onClick={() => {
+            this.deleteSignInCollection();
+          }}
+        >
+          delete
+        </a>
       </div>
     );
   }

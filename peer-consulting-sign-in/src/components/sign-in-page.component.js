@@ -49,6 +49,8 @@ export default class CreateSignIn extends Component {
     this.setState({
       studentId: ""
     });
+
+    window.location.reload();
   }
 
   render() {

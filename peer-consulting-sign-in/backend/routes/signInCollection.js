@@ -21,6 +21,13 @@ router.route("/add").post((req, res) => {
     .catch(err => res.status(400).json("Error: " + err));
 });
 
+router.route("/deleteAll").delete((req, res) => {
+  signIn
+    .deleteMany({})
+    .then(() => res.json("All Sign-Ins deleted."))
+    .catch(err => res.status(400).json("Error: " + err));
+});
+
 router.route("/:id").get((req, res) => {
   signIn
     .findById(req.params.id)

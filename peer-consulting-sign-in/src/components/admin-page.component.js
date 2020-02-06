@@ -29,7 +29,7 @@ export default class AdminPage extends Component {
         console.log(error);
       });
   }
-  
+
   deleteSignIn(id) {
     axios
       .delete("http://localhost:5000/signInCollection/" + id)
@@ -40,7 +40,8 @@ export default class AdminPage extends Component {
   }
 
   deleteSignInCollection() {
-    axios.delete("http://localhost:5000/signInCollection/allIDs/");
+    axios.delete("http://localhost:5000/signInCollection/deleteAll/");
+    window.location.reload();
   }
 
   signInCollection() {

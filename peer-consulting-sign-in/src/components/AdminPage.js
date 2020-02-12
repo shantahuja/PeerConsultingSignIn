@@ -101,20 +101,23 @@ export default class AdminPage extends Component {
           <tbody>{this.signInCollection()}</tbody>
         </table>
         <CsvDownloader
+          id="btnDownload"
+          class="btn btn-primary btn-sm btn-space"
           filename="myfile"
           separator=";"
           columns={columns}
           datas={datas}
           text="DOWNLOAD"
         />
-        <a
-          href="#"
+        <button
+          type="button"
+          id="btnDeleteAll"
           onClick={() => {
             this.deleteSignInCollection();
           }}
         >
-          delete
-        </a>
+          Delete All
+        </button>
       </div>
     );
   }

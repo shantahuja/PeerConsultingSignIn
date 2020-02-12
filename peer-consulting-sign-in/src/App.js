@@ -1,15 +1,14 @@
 import React from "react";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 
-import Navbar from "./components/navbar.component";
-import SignInPage from "./components/sign-in-page.component";
-import AdminPage from "./components/admin-page.component";
+import Navbar from "./components/Navbar";
+import SignInPage from "./components/SignInPage";
+import AdminPage from "./components/AdminPage";
 import { useAuth0 } from "./react-auth0-spa";
 
 function App() {
-  const { isAuthenticated } = useAuth0();
-  const { loading } = useAuth0();
+  const { isAuthenticated, loading } = useAuth0();
 
   if (loading) {
     return <div>Loading...</div>;
@@ -20,7 +19,11 @@ function App() {
         <Navbar />
         <br />
         <Route path="/" exact component={SignInPage} />
-        {isAuthenticated && <Route path="/admin" exact component={AdminPage} />}
+        {isAuthenticated ? (
+          <Route path="/admin" exact component={AdminPage} />
+        ) : (
+          <Redirect to="/" />
+        )}
       </div>
     </Router>
   );

@@ -1,7 +1,13 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { useForm } from "react-hook-form";
+import { ToastsContainer, ToastsStore } from "react-toasts";
 
 export default function CreateSignIn() {
+  const { register, handleSubmit, watch, errors, formState } = useForm({
+    mode: "onChange"
+  });
+
   const [studentId, setStudentId] = useState("");
   const [date, setDate] = useState(
     new Date().toLocaleDateString("en-US", {
@@ -20,8 +26,6 @@ export default function CreateSignIn() {
   };
 
   const onSubmit = e => {
-    e.preventDefault();
-
     const signIn = {
       studentId: studentId,
       date: date,
@@ -44,23 +48,35 @@ export default function CreateSignIn() {
   return (
     <div>
       <h3>Sign In!</h3>
-      <form onSubmit={onSubmit}>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <div className="form-group">
           <label>Student ID: </label>
           <input
+            name="Student ID:"
             type="text"
             required
-            className="form-control"
-            value={studentId}
             onChange={onChangeStudentId}
+            className="form-control"
+            ref={register({
+              required: true,
+              pattern: /^[%][0-9]{9}[?]$|^[0-9]{9}$/
+            })}
           />
+          {errors.exampleRequired && <span>This field is required</span>}
         </div>
         <div className="form-group">
-          <input
+          <button
+            disabled={
+              !formState.dirty || (formState.dirty && !formState.isValid)
+            }
             type="submit"
             value="Create Sign-In"
             className="btn btn-primary"
-          />
+            onClick={() => ToastsStore.success("Thanks for signing in!")}
+          >
+            Sign-In!
+          </button>
+          <ToastsContainer store={ToastsStore} position={"top_center"} />
         </div>
       </form>
     </div>

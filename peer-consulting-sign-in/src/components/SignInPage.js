@@ -1,43 +1,31 @@
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 
-export default class CreateSignIn extends Component {
-  constructor(props) {
-    super(props);
-
-    this.onChangeStudentId = this.onChangeStudentId.bind(this);
-    this.onSubmit = this.onSubmit.bind(this);
-    this.date = new Date().toLocaleDateString("en-US", {
+export default function CreateSignIn() {
+  const [studentId, setStudentId] = useState("");
+  const [date, setDate] = useState(
+    new Date().toLocaleDateString("en-US", {
       timeZone: "America/Los_Angeles"
-    });
-    this.time = new Date().toLocaleTimeString("en-US", {
+    })
+  );
+  const [time, setTime] = useState(
+    new Date().toLocaleTimeString("en-US", {
       timeZone: "America/Los_Angeles"
-    });
+    })
+  );
+  const [isButtonDisabled, setIsButtonDisabled] = useState(false);
 
-    this.state = {
-      studentId: "",
-      date: new Date(),
-      time: new Date()
-    };
-  }
+  const onChangeStudentId = e => {
+    setStudentId(e.target.value);
+  };
 
-  onChangeStudentId(e) {
-    this.setState({
-      studentId: e.target.value
-    });
-  }
-
-  onSubmit(e) {
+  const onSubmit = e => {
     e.preventDefault();
 
     const signIn = {
-      studentId: this.state.studentId,
-      date: this.state.date.toLocaleDateString("en-US", {
-        timeZone: "America/Los_Angeles"
-      }),
-      time: this.state.date.toLocaleTimeString("en-US", {
-        timeZone: "America/Los_Angeles"
-      })
+      studentId: studentId,
+      date: date,
+      time: time
     };
 
     console.log(signIn);
@@ -46,37 +34,35 @@ export default class CreateSignIn extends Component {
       .post("http://localhost:5000/signInCollection/add", signIn)
       .then(res => console.log(res.data));
 
-    this.setState({
-      studentId: ""
-    });
+    setStudentId("");
 
-    window.location.reload();
-  }
+    window.setTimeout(function() {
+      window.location.reload();
+    }, 3000);
+  };
 
-  render() {
-    return (
-      <div>
-        <h3>Sign In!</h3>
-        <form onSubmit={this.onSubmit}>
-          <div className="form-group">
-            <label>Student ID: </label>
-            <input
-              type="text"
-              required
-              className="form-control"
-              value={this.state.studentId}
-              onChange={this.onChangeStudentId}
-            />
-          </div>
-          <div className="form-group">
-            <input
-              type="submit"
-              value="Create Sign-In"
-              className="btn btn-primary"
-            />
-          </div>
-        </form>
-      </div>
-    );
-  }
+  return (
+    <div>
+      <h3>Sign In!</h3>
+      <form onSubmit={onSubmit}>
+        <div className="form-group">
+          <label>Student ID: </label>
+          <input
+            type="text"
+            required
+            className="form-control"
+            value={studentId}
+            onChange={onChangeStudentId}
+          />
+        </div>
+        <div className="form-group">
+          <input
+            type="submit"
+            value="Create Sign-In"
+            className="btn btn-primary"
+          />
+        </div>
+      </form>
+    </div>
+  );
 }

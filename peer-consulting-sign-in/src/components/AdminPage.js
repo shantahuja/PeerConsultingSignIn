@@ -102,7 +102,7 @@ export default class AdminPage extends Component {
         </table>
         <CsvDownloader
           id="btnDownload"
-          class="btn btn-primary btn-sm btn-space"
+          className="btn btn-primary btn-sm btn-space"
           filename="myfile"
           separator=";"
           columns={columns}
@@ -112,6 +112,7 @@ export default class AdminPage extends Component {
         <button
           type="button"
           id="btnDeleteAll"
+          className="btn btn-primary btn-sm btn-space"
           onClick={() => {
             this.deleteSignInCollection();
           }}

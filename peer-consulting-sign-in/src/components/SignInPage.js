@@ -36,7 +36,10 @@ export default function CreateSignIn() {
 
     axios
       .post("http://localhost:5000/signInCollection/add", signIn)
-      .then(res => console.log(res.data));
+      .then(response => {
+        ToastsStore.success("Thanks for signing in!");
+        console.log(response.data);
+      });
 
     setStudentId("");
 
@@ -72,7 +75,6 @@ export default function CreateSignIn() {
             type="submit"
             value="Create Sign-In"
             className="btn btn-primary"
-            onClick={() => ToastsStore.success("Thanks for signing in!")}
           >
             Sign-In!
           </button>

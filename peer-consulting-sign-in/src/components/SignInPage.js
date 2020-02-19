@@ -78,7 +78,7 @@ export default function CreateSignIn() {
             })}
             style={
               errors.studentId
-                ? { border: "1px pink", background: "pink" }
+                ? { borderLeft: "solid thick #e75480" }
                 : undefined
             }
           />
@@ -93,7 +93,7 @@ export default function CreateSignIn() {
           ref={register({ required: true })}
           style={
             errors.purposeOfVisit
-              ? { border: "1px pink", background: "pink" }
+              ? { borderLeft: "solid thick #e75480" }
               : undefined
           }
         >

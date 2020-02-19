@@ -60,9 +60,11 @@ export default function CreateSignIn() {
       <h3>Sign In!</h3>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="form-group">
-          <label>Student ID: </label>
           <input
-            name="Student ID"
+            autoComplete="off"
+            placeholder="Student ID"
+            name="studentId"
+            id="studentId"
             type="text"
             required
             onChange={onChangeStudentId}
@@ -74,21 +76,29 @@ export default function CreateSignIn() {
                 message: "must be 9 digits or % + 9 digits + ?"
               }
             })}
+            style={
+              errors.studentId
+                ? { border: "1px pink", background: "pink" }
+                : undefined
+            }
           />
-          {errors.exampleRequired && <span>This field is required</span>}
         </div>
-        <label>Purpose of visit: </label>
         <select
-          name="Purpose"
+          name="purposeOfVisit"
           type="text"
           required
           className="form-control"
           defaultValue=""
           onChange={onChangePurposeOfVisit}
           ref={register({ required: true })}
+          style={
+            errors.purposeOfVisit
+              ? { border: "1px pink", background: "pink" }
+              : undefined
+          }
         >
           <option disabled={true} value="">
-            Select...
+            Purpose of visit?
           </option>
           <option value="Self-study">Self-study</option>
           <option value="Tutor help">Tutor help</option>
@@ -101,7 +111,7 @@ export default function CreateSignIn() {
             }
             type="submit"
             value="Create Sign-In"
-            className="btn btn-primary"
+            className="btn btn-primary mt-3"
           >
             Sign-In!
           </button>

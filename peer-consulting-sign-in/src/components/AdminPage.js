@@ -7,6 +7,7 @@ const SignIn = props => (
     <td>{props.signIn.studentId}</td>
     <td>{props.signIn.date}</td>
     <td>{props.signIn.time}</td>
+    <td>{props.signIn.purposeOfVisit}</td>
     <td>
       <a
         href="#"
@@ -81,6 +82,10 @@ export default class AdminPage extends Component {
       {
         id: "time",
         displayName: "Time"
+      },
+      {
+        id: "purposeOfVisit",
+        displayName: "Purpose of Visit"
       }
     ];
     console.log(this.signInCollection());
@@ -96,6 +101,7 @@ export default class AdminPage extends Component {
               <th>Student ID</th>
               <th>Date</th>
               <th>Time</th>
+              <th>Purpose Of Visit</th>
             </tr>
           </thead>
           <tbody>{this.signInCollection()}</tbody>

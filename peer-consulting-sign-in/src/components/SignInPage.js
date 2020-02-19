@@ -19,17 +19,24 @@ export default function CreateSignIn() {
       timeZone: "America/Los_Angeles"
     })
   );
+
+  const [purposeOfVisit, setPurposeOfVisit] = useState("");
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
 
   const onChangeStudentId = e => {
     setStudentId(e.target.value);
   };
 
+  const onChangePurposeOfVisit = e => {
+    setPurposeOfVisit(e.target.value);
+  };
+
   const onSubmit = e => {
     const signIn = {
       studentId: studentId,
       date: date,
-      time: time
+      time: time,
+      purposeOfVisit: purposeOfVisit
     };
 
     console.log(signIn);
@@ -55,18 +62,38 @@ export default function CreateSignIn() {
         <div className="form-group">
           <label>Student ID: </label>
           <input
-            name="Student ID:"
+            name="Student ID"
             type="text"
             required
             onChange={onChangeStudentId}
             className="form-control"
             ref={register({
               required: true,
-              pattern: /^[%][0-9]{9}[?]$|^[0-9]{9}$/
+              pattern: {
+                value: /^[%][0-9]{9}[?]$|^[0-9]{9}$/,
+                message: "must be 9 digits or % + 9 digits + ?"
+              }
             })}
           />
           {errors.exampleRequired && <span>This field is required</span>}
         </div>
+        <label>Purpose of visit: </label>
+        <select
+          name="Purpose"
+          type="text"
+          required
+          className="form-control"
+          defaultValue=""
+          onChange={onChangePurposeOfVisit}
+          ref={register({ required: true })}
+        >
+          <option disabled={true} value="">
+            Select...
+          </option>
+          <option value="Self-study">Self-study</option>
+          <option value="Tutor help">Tutor help</option>
+          <option value="Both">Both</option>
+        </select>
         <div className="form-group">
           <button
             disabled={

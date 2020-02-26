@@ -40,30 +40,24 @@ export default class Login extends Component {
     axios
       .post("http://localhost:5000/userAdminCollection/authenticate", login)
       .then(response => {
-        ToastsStore.success("Thanks for logging in!");
         console.log(response.data);
         this.props.history.push("/");
         localStorage.setItem("token", "999888777");
-        this.setState({
-          loggedIn: true
-        });
+        ToastsStore.success(
+          "Thanks for logging in, administrator!\nYour admin options should show momentarily."
+        );
       })
       .catch(error => {
         ToastsStore.error("Error logging in! ");
         console.log(error);
       });
-    // if (username === "OITAdmin" && password === "OregonTech!@4u") {
-    //   localStorage.setItem("token", "999888777");
-    //   this.setState({
-    //     loggedIn: true
-    //   });
-    // }
+
     window.setTimeout(function() {
       window.location.reload();
-    }, 3000);
+    }, 2000);
   }
   render() {
-    if (this.state.loggedIn) {
+    if (this.state.loggedIn === true) {
       return <Redirect to="/admin" />;
     }
     return (
@@ -90,6 +84,7 @@ export default class Login extends Component {
           <input type="submit" />
           <br />
         </form>
+        <ToastsContainer store={ToastsStore} position={"top_center"} />
       </div>
     );
   }

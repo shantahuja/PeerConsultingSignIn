@@ -7,7 +7,7 @@ export default class Logout extends Component {
     localStorage.removeItem("token");
     window.setTimeout(function() {
       window.location.reload();
-    }, 3000);
+    }, 1000);
   }
   render() {
     return (

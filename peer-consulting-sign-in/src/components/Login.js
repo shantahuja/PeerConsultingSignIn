@@ -29,7 +29,7 @@ export default class Login extends Component {
   submitForm(e) {
     e.preventDefault();
     const { username, password } = this.state;
-    if (username === "A" && password === "B") {
+    if (username === "OITAdmin" && password === "OregonTech!@4u") {
       localStorage.setItem("token", "999888777");
       this.setState({
         loggedIn: true

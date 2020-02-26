@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import axios from "axios";
 import CsvDownloader from "react-csv-downloader";
 import { Redirect } from "react-router-dom";
-import { Link } from "react-router-dom";
 
 const SignIn = props => (
   <tr>
@@ -79,7 +78,7 @@ export default class AdminPage extends Component {
   }
 
   render() {
-    if (this.state.loggedIn == false) {
+    if (this.state.loggedIn === false) {
       return <Redirect to="/" />;
     }
     const columns = [

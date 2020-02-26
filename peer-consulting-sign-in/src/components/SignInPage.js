@@ -1,14 +1,29 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useForm } from "react-hook-form";
 import { ToastsContainer, ToastsStore } from "react-toasts";
+
+const useStateWithLocalStorage = localStorageKey => {
+  const [
+    studentIdState,
+    setStudentIdState,
+    purposeOfVisit,
+    setPurposeOfVisit
+  ] = React.useState(localStorage.getItem(localStorageKey) || "");
+  React.useEffect(() => {
+    localStorage.setItem(localStorageKey, studentIdState, purposeOfVisit);
+  }, [studentIdState, purposeOfVisit]);
+  return [studentIdState, setStudentIdState, purposeOfVisit, setPurposeOfVisit];
+};
 
 export default function CreateSignIn() {
   const { register, handleSubmit, watch, errors, formState } = useForm({
     mode: "onChange"
   });
 
-  const [studentId, setStudentId] = useState("");
+  const [studentIdState, setStudentIdState] = useStateWithLocalStorage(
+    "studentIdInLocalStorage"
+  );
   const [date, setDate] = useState(
     new Date().toLocaleDateString("en-US", {
       timeZone: "America/Los_Angeles"
@@ -20,10 +35,19 @@ export default function CreateSignIn() {
     })
   );
 
-  const [purposeOfVisit, setPurposeOfVisit] = useState("");
+  const [purposeOfVisit, setPurposeOfVisit] = useStateWithLocalStorage(
+    "purposeOfVisitInLocalStorage"
+  );
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      window.location.reload();
+    }, 10000);
+    return () => clearInterval(interval);
+  }, []);
 
   const onChangeStudentId = e => {
-    setStudentId(e.target.value);
+    setStudentIdState(e.target.value);
   };
 
   const onChangePurposeOfVisit = e => {
@@ -32,7 +56,7 @@ export default function CreateSignIn() {
 
   const onSubmit = e => {
     const signIn = {
-      studentId: studentId,
+      studentId: studentIdState,
       date: date,
       time: time,
       purposeOfVisit: purposeOfVisit
@@ -47,8 +71,8 @@ export default function CreateSignIn() {
         console.log(response.data);
       });
 
-    setStudentId("");
-
+    setStudentIdState("");
+    setPurposeOfVisit("");
     window.setTimeout(function() {
       window.location.reload();
     }, 3000);
@@ -60,11 +84,11 @@ export default function CreateSignIn() {
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="form-group">
           <input
-            autoComplete="off"
             autoFocus={true}
             placeholder="Student ID"
             name="studentId"
             id="studentId"
+            defaultValue={studentIdState}
             type="text"
             required
             onChange={onChangeStudentId}
@@ -88,7 +112,7 @@ export default function CreateSignIn() {
           type="text"
           required
           className="form-control"
-          defaultValue=""
+          value={purposeOfVisit}
           onChange={onChangePurposeOfVisit}
           ref={register({ required: true })}
           style={
@@ -106,9 +130,7 @@ export default function CreateSignIn() {
         </select>
         <div className="form-group">
           <button
-            disabled={
-              !formState.dirty || (formState.dirty && !formState.isValid)
-            }
+            disabled={formState.dirty && !formState.isValid}
             type="submit"
             value="Create Sign-In"
             className="btn btn-primary mt-3"

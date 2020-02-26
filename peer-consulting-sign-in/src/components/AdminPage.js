@@ -1,12 +1,14 @@
 import React, { Component } from "react";
 import axios from "axios";
 import CsvDownloader from "react-csv-downloader";
+import { Redirect } from "react-router-dom";
 
 const SignIn = props => (
   <tr>
     <td>{props.signIn.studentId}</td>
     <td>{props.signIn.date}</td>
     <td>{props.signIn.time}</td>
+    <td>{props.signIn.purposeOfVisit}</td>
     <td>
       <a
         href="#"
@@ -23,10 +25,17 @@ const SignIn = props => (
 export default class AdminPage extends Component {
   constructor(props) {
     super(props);
+    const token = localStorage.getItem("token");
+
+    let loggedIn = true;
+    if (token == null) {
+      loggedIn = false;
+    }
 
     this.deleteSignIn = this.deleteSignIn.bind(this);
 
     this.state = {
+      loggedIn,
       signInCollection: []
     };
   }
@@ -69,6 +78,9 @@ export default class AdminPage extends Component {
   }
 
   render() {
+    if (this.state.loggedIn === false) {
+      return <Redirect to="/" />;
+    }
     const columns = [
       {
         id: "studentId",
@@ -81,6 +93,10 @@ export default class AdminPage extends Component {
       {
         id: "time",
         displayName: "Time"
+      },
+      {
+        id: "purposeOfVisit",
+        displayName: "Purpose of Visit"
       }
     ];
     console.log(this.signInCollection());
@@ -96,6 +112,7 @@ export default class AdminPage extends Component {
               <th>Student ID</th>
               <th>Date</th>
               <th>Time</th>
+              <th>Purpose Of Visit</th>
             </tr>
           </thead>
           <tbody>{this.signInCollection()}</tbody>

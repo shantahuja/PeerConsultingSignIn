@@ -12,8 +12,9 @@ router.route("/add").post((req, res) => {
   const studentId = req.body.studentId;
   const date = req.body.date;
   const time = req.body.time;
+  const purposeOfVisit = req.body.purposeOfVisit;
 
-  const newSignIn = new signIn({ studentId, date, time });
+  const newSignIn = new signIn({ studentId, date, time, purposeOfVisit });
 
   newSignIn
     .save()

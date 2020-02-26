@@ -1,10 +1,16 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import NavBarLogin from "./NavBarLogin";
-import { useAuth0 } from "../react-auth0-spa";
 
 function Navbar() {
-  const { isAuthenticated } = useAuth0();
+  const token = localStorage.getItem("token");
+
+  let loggedIn = false;
+  if (token === "999888777") {
+    loggedIn = true;
+  }
+
+  console.log(loggedIn);
+
   return (
     <nav className="navbar navbar-dark bg-dark navbar-expand-lg ">
       <Link to="/" className="navbar-brand">
@@ -18,7 +24,7 @@ function Navbar() {
             </Link>
           </li>
           <li className="navbar-item">
-            {isAuthenticated && (
+            {loggedIn && (
               <Link to="/admin" className="nav-link">
                 Admin
               </Link>
@@ -26,7 +32,16 @@ function Navbar() {
           </li>
         </ul>
         <ul className="navbar-nav">
-          <NavBarLogin />
+          {!loggedIn && (
+            <Link to="/login" className="nav-link">
+              Login
+            </Link>
+          )}
+          {loggedIn && (
+            <Link to="/logout" className="nav-link">
+              Logout
+            </Link>
+          )}
         </ul>
       </div>
     </nav>

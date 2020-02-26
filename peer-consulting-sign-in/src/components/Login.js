@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
+import axios from "axios";
+import { ToastsContainer, ToastsStore } from "react-toasts";
 
 export default class Login extends Component {
   constructor(props) {
@@ -29,16 +31,33 @@ export default class Login extends Component {
   submitForm(e) {
     e.preventDefault();
     const { username, password } = this.state;
-    if (username === "OITAdmin" && password === "OregonTech!@4u") {
-      localStorage.setItem("token", "999888777");
-      this.setState({
-        loggedIn: true
+
+    const login = {
+      username: username,
+      password: password
+    };
+
+    axios
+      .post("http://localhost:5000/userAdminCollection/authenticate", login)
+      .then(response => {
+        console.log(response.data);
+        this.props.history.push("/");
+        localStorage.setItem("token", "999888777");
+        ToastsStore.success(
+          "Thanks for logging in, administrator!\nYour admin options should show momentarily."
+        );
+      })
+      .catch(error => {
+        ToastsStore.error("Error logging in! ");
+        console.log(error);
       });
-    }
-    window.location.reload();
+
+    window.setTimeout(function() {
+      window.location.reload();
+    }, 2000);
   }
   render() {
-    if (this.state.loggedIn) {
+    if (this.state.loggedIn === true) {
       return <Redirect to="/admin" />;
     }
     return (
@@ -65,6 +84,7 @@ export default class Login extends Component {
           <input type="submit" />
           <br />
         </form>
+        <ToastsContainer store={ToastsStore} position={"top_center"} />
       </div>
     );
   }

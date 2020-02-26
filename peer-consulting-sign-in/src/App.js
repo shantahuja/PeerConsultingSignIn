@@ -7,6 +7,7 @@ import SignInPage from "./components/SignInPage";
 import AdminPage from "./components/AdminPage";
 import Login from "./components/Login";
 import Logout from "./components/Logout";
+import withAuth from "./components/WithAuth";
 
 function App() {
   const token = localStorage.getItem("token");
@@ -22,7 +23,7 @@ function App() {
         <br />
         <Route path="/" exact component={SignInPage} />
         {loggedIn ? (
-          <Route path="/admin" exact component={AdminPage} />
+          <Route path="/admin" exact component={withAuth(AdminPage)} />
         ) : (
           <Redirect to="/" />
         )}

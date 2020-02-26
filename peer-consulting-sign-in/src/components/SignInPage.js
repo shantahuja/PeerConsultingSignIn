@@ -42,7 +42,7 @@ export default function CreateSignIn() {
   useEffect(() => {
     const interval = setInterval(() => {
       window.location.reload();
-    }, 10000);
+    }, 15000);
     return () => clearInterval(interval);
   }, []);
 
@@ -69,6 +69,10 @@ export default function CreateSignIn() {
       .then(response => {
         ToastsStore.success("Thanks for signing in!");
         console.log(response.data);
+      })
+      .catch(error => {
+        ToastsStore.error("Bad request to server!");
+        console.log(error);
       });
 
     setStudentIdState("");

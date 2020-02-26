@@ -5,13 +5,15 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import Navbar from "./components/Navbar";
 import SignInPage from "./components/SignInPage";
 import AdminPage from "./components/AdminPage";
-import { useAuth0 } from "./react-auth0-spa";
+import Login from "./components/Login";
+import Logout from "./components/Logout";
 
 function App() {
-  const { isAuthenticated, loading } = useAuth0();
+  const token = localStorage.getItem("token");
 
-  if (loading) {
-    return <div>Loading...</div>;
+  let loggedIn = true;
+  if (token == null) {
+    loggedIn = false;
   }
   return (
     <Router>
@@ -19,11 +21,13 @@ function App() {
         <Navbar />
         <br />
         <Route path="/" exact component={SignInPage} />
-        {isAuthenticated ? (
+        {loggedIn ? (
           <Route path="/admin" exact component={AdminPage} />
         ) : (
           <Redirect to="/" />
         )}
+        <Route path="/login" exact component={Login} />
+        <Route path="/logout" exact component={Logout} />
       </div>
     </Router>
   );

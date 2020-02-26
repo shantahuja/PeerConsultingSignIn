@@ -62,7 +62,7 @@ export default function CreateSignIn() {
         <div className="form-group">
           <input
             autoComplete="off"
-            autofocus="true"
+            autoFocus={true}
             placeholder="Student ID"
             name="studentId"
             id="studentId"

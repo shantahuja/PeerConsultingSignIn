@@ -32,9 +32,16 @@ function Navbar() {
           </li>
         </ul>
         <ul className="navbar-nav">
-          <Link to="/login" className="nav-link">
-            Login
-          </Link>
+          {!loggedIn && (
+            <Link to="/login" className="nav-link">
+              Login
+            </Link>
+          )}
+          {loggedIn && (
+            <Link to="/logout" className="nav-link">
+              Logout
+            </Link>
+          )}
         </ul>
       </div>
     </nav>

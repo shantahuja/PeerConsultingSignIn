@@ -106,7 +106,6 @@ export default class AdminPage extends Component {
 
     return (
       <div>
-        <Link to="/logout">Logout</Link>
         <h3>Logged Sign-Ins</h3>
         <table className="table">
           <thead className="thead-light">

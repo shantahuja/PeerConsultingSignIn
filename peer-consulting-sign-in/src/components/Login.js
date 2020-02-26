@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
+import axios from "axios";
+import { ToastsContainer, ToastsStore } from "react-toasts";
 
 export default class Login extends Component {
   constructor(props) {
@@ -29,13 +31,36 @@ export default class Login extends Component {
   submitForm(e) {
     e.preventDefault();
     const { username, password } = this.state;
-    if (username === "OITAdmin" && password === "OregonTech!@4u") {
-      localStorage.setItem("token", "999888777");
-      this.setState({
-        loggedIn: true
+
+    const login = {
+      username: username,
+      password: password
+    };
+
+    axios
+      .post("http://localhost:5000/userAdminCollection/authenticate", login)
+      .then(response => {
+        ToastsStore.success("Thanks for logging in!");
+        console.log(response.data);
+        this.props.history.push("/");
+        localStorage.setItem("token", "999888777");
+        this.setState({
+          loggedIn: true
+        });
+      })
+      .catch(error => {
+        ToastsStore.error("Error logging in! ");
+        console.log(error);
       });
-    }
-    window.location.reload();
+    // if (username === "OITAdmin" && password === "OregonTech!@4u") {
+    //   localStorage.setItem("token", "999888777");
+    //   this.setState({
+    //     loggedIn: true
+    //   });
+    // }
+    window.setTimeout(function() {
+      window.location.reload();
+    }, 3000);
   }
   render() {
     if (this.state.loggedIn) {

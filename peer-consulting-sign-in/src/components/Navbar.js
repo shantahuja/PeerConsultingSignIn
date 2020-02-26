@@ -1,6 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
+import withAuth from "./WithAuth";
+
 function Navbar() {
   const token = localStorage.getItem("token");
 

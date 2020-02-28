@@ -22,7 +22,7 @@ const SignIn = props => (
   </tr>
 );
 
-export default class AdminPage extends Component {
+export default class SignInList extends Component {
   constructor(props) {
     super(props);
     const token = localStorage.getItem("token");
@@ -117,25 +117,30 @@ export default class AdminPage extends Component {
           </thead>
           <tbody>{this.signInCollection()}</tbody>
         </table>
-        <CsvDownloader
-          id="btnDownload"
-          className="btn btn-primary btn-sm btn-space"
-          filename="myfile"
-          separator=";"
-          columns={columns}
-          datas={datas}
-          text="DOWNLOAD"
-        />
-        <button
-          type="button"
-          id="btnDeleteAll"
-          className="btn btn-primary btn-sm btn-space"
-          onClick={() => {
-            this.deleteSignInCollection();
-          }}
-        >
-          Delete All
-        </button>
+        <div className="form-group row">
+          <div className="col-md-2">
+            <CsvDownloader
+              type="button"
+              id="btnDownload"
+              filename="myfile"
+              separator=";"
+              columns={columns}
+              datas={datas}
+              text="DOWNLOAD"
+            />
+          </div>
+          <div className="col-md-2">
+            <button
+              type="button"
+              id="btnDeleteAll"
+              onClick={() => {
+                this.deleteSignInCollection();
+              }}
+            >
+              Delete All
+            </button>
+          </div>
+        </div>
       </div>
     );
   }

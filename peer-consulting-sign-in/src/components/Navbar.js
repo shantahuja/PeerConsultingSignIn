@@ -25,8 +25,15 @@ function Navbar() {
           </li>
           <li className="navbar-item">
             {loggedIn && (
-              <Link to="/admin" className="nav-link">
-                Admin
+              <Link to="/signinlist" className="nav-link">
+                Sign In List
+              </Link>
+            )}
+          </li>
+          <li className="navbar-item">
+            {loggedIn && (
+              <Link to="/subjectlist" className="nav-link">
+                Subject List
               </Link>
             )}
           </li>

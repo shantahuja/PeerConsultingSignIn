@@ -12,7 +12,8 @@ const signInSchema = new Schema(
     },
     date: { type: String },
     time: { type: String },
-    purposeOfVisit: { type: String }
+    purposeOfVisit: { type: String },
+    subject: { type: String }
   },
   {
     timestamps: true

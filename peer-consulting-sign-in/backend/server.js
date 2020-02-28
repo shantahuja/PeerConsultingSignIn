@@ -31,9 +31,11 @@ connection.once("open", () => {
 
 const signInCollectionRouter = require("./routes/signInCollection");
 const userAdminCollectionRouter = require("./routes/userAdminCollection");
+const subjectCollectionRouter = require("./routes/subjectCollection");
 
 app.use("/signInCollection", signInCollectionRouter);
 app.use("/userAdminCollection", userAdminCollectionRouter);
+app.use("/subjectCollection", subjectCollectionRouter);
 
 app.listen(port, () => {
   console.log(`Server is running on port: ${port}`);

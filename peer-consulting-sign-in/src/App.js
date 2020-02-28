@@ -4,7 +4,9 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 import Navbar from "./components/Navbar";
 import SignInPage from "./components/SignInPage";
-import AdminPage from "./components/AdminPage";
+import SignInList from "./components/SignInList";
+import SubjectList from "./components/SubjectList";
+import EditSubject from "./components/EditSubject";
 import Login from "./components/Login";
 import Logout from "./components/Logout";
 import withAuth from "./components/WithAuth";
@@ -23,7 +25,17 @@ function App() {
         <br />
         <Route path="/" exact component={SignInPage} />
         {loggedIn ? (
-          <Route path="/admin" exact component={withAuth(AdminPage)} />
+          <Route path="/signinlist" exact component={withAuth(SignInList)} />
+        ) : (
+          <Redirect to="/" />
+        )}
+        {loggedIn ? (
+          <Route path="/subjectlist" exact component={withAuth(SubjectList)} />
+        ) : (
+          <Redirect to="/" />
+        )}
+        {loggedIn ? (
+          <Route path="/edit/:id" exact component={withAuth(EditSubject)} />
         ) : (
           <Redirect to="/" />
         )}

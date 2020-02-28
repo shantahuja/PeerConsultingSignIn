@@ -27,16 +27,6 @@ export default function SubjectList() {
   const [descriptionState, setDescriptionState] = useState("");
   const [subjectCollection, setSubjectCollection] = useState([]);
 
-  // function componentDidMount() {
-  //   axios
-  //     .get("http://localhost:5000/subjectCollection/")
-  //     .then(response => {
-  //       this.setState({ subjectCollection: response.data });
-  //     })
-  //     .catch(error => {
-  //       console.log(error);
-  //     });
-  // }
   useEffect(() => {
     axios
       .get("http://localhost:5000/subjectCollection/")
@@ -81,7 +71,7 @@ export default function SubjectList() {
     setDescriptionState("");
     window.setTimeout(function() {
       window.location.reload();
-    }, 500);
+    }, 1000);
   };
 
   function deleteSubject(id) {
@@ -111,16 +101,6 @@ export default function SubjectList() {
 
   return (
     <div>
-      <h3>Subject List</h3>
-      <table className="table">
-        <thead className="thead-light">
-          <tr>
-            <th>Name</th>
-            <th>Description</th>
-          </tr>
-        </thead>
-        <tbody>{subjectList()}</tbody>
-      </table>
       <h3>Create New Subject</h3>
       <form onSubmit={onSubmit}>
         <div className="form-group">
@@ -151,6 +131,17 @@ export default function SubjectList() {
         </div>
         <ToastsContainer store={ToastsStore} position={"top_center"} />
       </form>
+      <br></br>
+      <h3>Subject List</h3>
+      <table className="table">
+        <thead className="thead-light">
+          <tr>
+            <th>Name</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>{subjectList()}</tbody>
+      </table>
     </div>
   );
 }

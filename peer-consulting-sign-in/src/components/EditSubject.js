@@ -36,18 +36,11 @@ export default function EditSubject() {
       description: newDescriptionState
     };
 
-    console.log(subject);
-
     axios
       .post("http://localhost:5000/subjectCollection/update/" + id, subject)
       .then(response => {
-        ToastsStore.success(
-          "Subject Successfully Edited.\nTaking you back to subject list..."
-        );
         console.log(response.data);
-        window.setTimeout(function() {
-          window.location.reload();
-        }, 4000);
+        ToastsStore.success("Subject Successfully Edited.");
         window.location.assign("http://localhost:3000/subjectList");
       })
       .catch(error => {
@@ -81,13 +74,11 @@ export default function EditSubject() {
           />
         </div>
         <div className="form-group">
-          <button
+          <input
             type="submit"
-            value="Edit Exercise Log"
-            className="btn btn-primary mt-3"
-          >
-            Sign-In!
-          </button>
+            value="Edit Subject"
+            className="btn btn-primary"
+          />
         </div>
         <ToastsContainer store={ToastsStore} position={"top_center"} />
       </form>

@@ -181,7 +181,7 @@ export default function CreateSignIn() {
             onChange={onChangeSubjectSelected}
             ref={register({ required: true })}
             style={
-              errors.purposeOfVisit
+              errors.subjectSelected
                 ? { borderLeft: "solid thick #e75480" }
                 : undefined
             }
@@ -200,7 +200,6 @@ export default function CreateSignIn() {
         </div>
         <div className="form-group">
           <button
-            disabled={formState.dirty && !formState.isValid}
             type="submit"
             value="Create Sign-In"
             className="btn btn-primary mt-3"

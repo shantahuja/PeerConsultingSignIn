@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import axios from "axios";
 import CsvDownloader from "react-csv-downloader";
 import { Redirect } from "react-router-dom";
+import { ToastsStore, ToastsContainer } from "react-toasts";
 
 const SignIn = props => (
   <tr>
@@ -9,6 +10,7 @@ const SignIn = props => (
     <td>{props.signIn.date}</td>
     <td>{props.signIn.time}</td>
     <td>{props.signIn.purposeOfVisit}</td>
+    <td>{props.signIn.subject}</td>
     <td>
       <a
         href="#"
@@ -52,9 +54,10 @@ export default class SignInList extends Component {
   }
 
   deleteSignIn(id) {
-    axios
-      .delete("http://localhost:5000/signInCollection/" + id)
-      .then(res => console.log(res.data));
+    axios.delete("http://localhost:5000/signInCollection/" + id).then(res => {
+      ToastsStore.success("Sign-in deleted!");
+      console.log(res.data);
+    });
     this.setState({
       signInCollection: this.state.signInCollection.filter(el => el._id !== id)
     });
@@ -97,6 +100,10 @@ export default class SignInList extends Component {
       {
         id: "purposeOfVisit",
         displayName: "Purpose of Visit"
+      },
+      {
+        id: "subject",
+        displayName: "Subject"
       }
     ];
     console.log(this.signInCollection());
@@ -113,6 +120,7 @@ export default class SignInList extends Component {
               <th>Date</th>
               <th>Time</th>
               <th>Purpose Of Visit</th>
+              <th>Subject</th>
             </tr>
           </thead>
           <tbody>{this.signInCollection()}</tbody>
@@ -141,6 +149,7 @@ export default class SignInList extends Component {
             </button>
           </div>
         </div>
+        <ToastsContainer store={ToastsStore} position={"top_center"} />
       </div>
     );
   }

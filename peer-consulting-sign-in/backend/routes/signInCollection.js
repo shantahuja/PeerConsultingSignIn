@@ -13,8 +13,15 @@ router.route("/add").post((req, res) => {
   const date = req.body.date;
   const time = req.body.time;
   const purposeOfVisit = req.body.purposeOfVisit;
+  const subject = req.body.subject;
 
-  const newSignIn = new signIn({ studentId, date, time, purposeOfVisit });
+  const newSignIn = new signIn({
+    studentId,
+    date,
+    time,
+    purposeOfVisit,
+    subject
+  });
 
   newSignIn
     .save()

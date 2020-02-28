@@ -8,12 +8,27 @@ const useStateWithLocalStorage = localStorageKey => {
     studentIdState,
     setStudentIdState,
     purposeOfVisit,
-    setPurposeOfVisit
+    setPurposeOfVisit,
+    subjectSelected,
+    setSubjectSelected
   ] = React.useState(localStorage.getItem(localStorageKey) || "");
   React.useEffect(() => {
-    localStorage.setItem(localStorageKey, studentIdState, purposeOfVisit);
-  }, [studentIdState, purposeOfVisit]);
-  return [studentIdState, setStudentIdState, purposeOfVisit, setPurposeOfVisit];
+    localStorage.setItem(
+      localStorageKey,
+      studentIdState,
+      purposeOfVisit,
+      subjectSelected,
+      setSubjectSelected
+    );
+  }, [studentIdState, purposeOfVisit, subjectSelected, setSubjectSelected]);
+  return [
+    studentIdState,
+    setStudentIdState,
+    purposeOfVisit,
+    setPurposeOfVisit,
+    subjectSelected,
+    setSubjectSelected
+  ];
 };
 
 export default function CreateSignIn() {
@@ -39,11 +54,27 @@ export default function CreateSignIn() {
     "purposeOfVisitInLocalStorage"
   );
 
+  const [subjectCollection, setSubjectCollection] = useState([]);
+  const [subjectSelected, setSubjectSelected] = useStateWithLocalStorage(
+    "setSubjectSelectedInLocalStorage"
+  );
+
   useEffect(() => {
     const interval = setInterval(() => {
       window.location.reload();
     }, 15000);
     return () => clearInterval(interval);
+  }, []);
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:5000/subjectCollection/")
+      .then(response => {
+        setSubjectCollection(response.data);
+      })
+      .catch(error => {
+        console.log(error);
+      });
   }, []);
 
   const onChangeStudentId = e => {
@@ -54,12 +85,17 @@ export default function CreateSignIn() {
     setPurposeOfVisit(e.target.value);
   };
 
+  const onChangeSubjectSelected = e => {
+    setSubjectSelected(e.target.value);
+  };
+
   const onSubmit = e => {
     const signIn = {
       studentId: studentIdState,
       date: date,
       time: time,
-      purposeOfVisit: purposeOfVisit
+      purposeOfVisit: purposeOfVisit,
+      subject: subjectSelected
     };
 
     console.log(signIn);
@@ -77,6 +113,7 @@ export default function CreateSignIn() {
 
     setStudentIdState("");
     setPurposeOfVisit("");
+    setSubjectSelected("");
     window.setTimeout(function() {
       window.location.reload();
     }, 1000);
@@ -111,27 +148,56 @@ export default function CreateSignIn() {
             }
           />
         </div>
-        <select
-          name="purposeOfVisit"
-          type="text"
-          required
-          className="form-control"
-          value={purposeOfVisit}
-          onChange={onChangePurposeOfVisit}
-          ref={register({ required: true })}
-          style={
-            errors.purposeOfVisit
-              ? { borderLeft: "solid thick #e75480" }
-              : undefined
-          }
-        >
-          <option disabled={true} value="">
-            Purpose of visit?
-          </option>
-          <option value="Self-study">Self-study</option>
-          <option value="Tutor help">Tutor help</option>
-          <option value="Both">Both</option>
-        </select>
+        <div className="form-group">
+          <select
+            name="purposeOfVisit"
+            type="text"
+            required
+            className="form-control"
+            value={purposeOfVisit}
+            onChange={onChangePurposeOfVisit}
+            ref={register({ required: true })}
+            style={
+              errors.purposeOfVisit
+                ? { borderLeft: "solid thick #e75480" }
+                : undefined
+            }
+          >
+            <option disabled={true} value="">
+              Purpose of visit?
+            </option>
+            <option value="Self-study">Self-study</option>
+            <option value="Tutor help">Tutor help</option>
+            <option value="Both">Both</option>
+          </select>
+        </div>
+        <div className="form-group">
+          <select
+            name="subjectSelected"
+            type="text"
+            required
+            className="form-control"
+            value={subjectSelected}
+            onChange={onChangeSubjectSelected}
+            ref={register({ required: true })}
+            style={
+              errors.purposeOfVisit
+                ? { borderLeft: "solid thick #e75480" }
+                : undefined
+            }
+          >
+            <option disabled={true} value="">
+              Subject area?
+            </option>
+            {subjectCollection
+              .sort((a, b) => a.name.localeCompare(b.name))
+              .map(subject => (
+                <option key={subject.name} value={subject.description}>
+                  {subject.name}
+                </option>
+              ))}
+          </select>
+        </div>
         <div className="form-group">
           <button
             disabled={formState.dirty && !formState.isValid}
@@ -141,8 +207,8 @@ export default function CreateSignIn() {
           >
             Sign-In!
           </button>
-          <ToastsContainer store={ToastsStore} position={"top_center"} />
         </div>
+        <ToastsContainer store={ToastsStore} position={"top_center"} />
       </form>
     </div>
   );

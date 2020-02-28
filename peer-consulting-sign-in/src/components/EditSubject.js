@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
+import { ToastsContainer, ToastsStore } from "react-toasts";
 
 export default function EditSubject() {
   const [newNameState, setNewNameState] = useState("");
@@ -40,13 +41,17 @@ export default function EditSubject() {
     axios
       .post("http://localhost:5000/subjectCollection/update/" + id, subject)
       .then(response => {
+        ToastsStore.success(
+          "Subject Successfully Edited.\nTaking you back to subject list..."
+        );
         console.log(response.data);
         window.setTimeout(function() {
           window.location.reload();
-        }, 3000);
+        }, 4000);
         window.location.assign("http://localhost:3000/subjectList");
       })
       .catch(error => {
+        ToastsStore.error("Bad request to server!");
         console.log(error);
       });
   };
@@ -76,12 +81,15 @@ export default function EditSubject() {
           />
         </div>
         <div className="form-group">
-          <input
+          <button
             type="submit"
             value="Edit Exercise Log"
-            className="btn btn-primary"
-          />
+            className="btn btn-primary mt-3"
+          >
+            Sign-In!
+          </button>
         </div>
+        <ToastsContainer store={ToastsStore} position={"top_center"} />
       </form>
     </div>
   );

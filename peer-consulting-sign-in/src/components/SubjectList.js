@@ -2,14 +2,13 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 
-import { useForm } from "react-hook-form";
 import { ToastsContainer, ToastsStore } from "react-toasts";
 
 const Subject = props => (
   <tr>
     <td>{props.subject.name}</td>
     <td>{props.subject.description}</td>
-    <td>
+    <td width="10%">
       <Link to={"/edit/" + props.subject._id}>edit</Link> |{" "}
       <a
         href="#"
@@ -39,20 +38,15 @@ export default function SubjectList() {
   //     });
   // }
   useEffect(() => {
-    async function fetchApiData() {
-      axios
-        .get("http://localhost:5000/subjectCollection/")
-        .then(response => {
-          setSubjectCollection(response.data);
-        })
-        .catch(error => {
-          console.log(error);
-        });
-    }
-    fetchApiData();
+    axios
+      .get("http://localhost:5000/subjectCollection/")
+      .then(response => {
+        setSubjectCollection(response.data);
+      })
+      .catch(error => {
+        console.log(error);
+      });
   }, []);
-
-  console.log(subjectCollection);
 
   const onChangeNewName = e => {
     const name = e.target.value;
@@ -75,7 +69,7 @@ export default function SubjectList() {
     axios
       .post("http://localhost:5000/subjectCollection/add", subject)
       .then(response => {
-        ToastsStore.success("Thanks for signing in!");
+        ToastsStore.success("Subject added!");
         console.log(response.data);
       })
       .catch(error => {
@@ -94,6 +88,7 @@ export default function SubjectList() {
     axios
       .delete("http://localhost:5000/subjectCollection/" + id)
       .then(response => {
+        ToastsStore.success("Subject deleted!");
         console.log(response.data);
       });
 
@@ -101,15 +96,17 @@ export default function SubjectList() {
   }
 
   function subjectList() {
-    return subjectCollection.map(currentsubject => {
-      return (
-        <Subject
-          subject={currentsubject}
-          deleteSubject={deleteSubject}
-          key={currentsubject._id}
-        />
-      );
-    });
+    return subjectCollection
+      .sort((a, b) => a.name.localeCompare(b.name))
+      .map(currentsubject => {
+        return (
+          <Subject
+            subject={currentsubject}
+            deleteSubject={deleteSubject}
+            key={currentsubject._id}
+          />
+        );
+      });
   }
 
   return (
@@ -152,6 +149,7 @@ export default function SubjectList() {
             className="btn btn-primary"
           />
         </div>
+        <ToastsContainer store={ToastsStore} position={"top_center"} />
       </form>
     </div>
   );

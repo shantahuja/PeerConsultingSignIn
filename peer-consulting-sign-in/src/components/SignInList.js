@@ -65,6 +65,11 @@ export default class SignInList extends Component {
 
   deleteSignInCollection() {
     axios.delete("http://localhost:5000/signInCollection/deleteAll/");
+    axios
+      .delete("http://localhost:5000/signInCollection/deleteAll/")
+      .then(res => {
+        ToastsStore.success("All Sign-ins deleted!");
+      });
     window.location.reload();
   }
 

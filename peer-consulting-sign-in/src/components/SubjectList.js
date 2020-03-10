@@ -71,7 +71,7 @@ export default function SubjectList() {
     setDescriptionState("");
     window.setTimeout(function() {
       window.location.reload();
-    }, 1000);
+    }, 2000);
   };
 
   function deleteSubject(id) {

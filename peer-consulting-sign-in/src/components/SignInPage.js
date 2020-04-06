@@ -3,14 +3,14 @@ import axios from "axios";
 import { useForm } from "react-hook-form";
 import { ToastsContainer, ToastsStore } from "react-toasts";
 
-const useStateWithLocalStorage = localStorageKey => {
+const useStateWithLocalStorage = (localStorageKey) => {
   const [
     studentIdState,
     setStudentIdState,
     purposeOfVisit,
     setPurposeOfVisit,
     subjectSelected,
-    setSubjectSelected
+    setSubjectSelected,
   ] = React.useState(localStorage.getItem(localStorageKey) || "");
   React.useEffect(() => {
     localStorage.setItem(
@@ -27,13 +27,13 @@ const useStateWithLocalStorage = localStorageKey => {
     purposeOfVisit,
     setPurposeOfVisit,
     subjectSelected,
-    setSubjectSelected
+    setSubjectSelected,
   ];
 };
 
 export default function CreateSignIn() {
   const { register, handleSubmit, watch, errors, formState } = useForm({
-    mode: "onChange"
+    mode: "onChange",
   });
 
   const [studentIdState, setStudentIdState] = useStateWithLocalStorage(
@@ -41,12 +41,12 @@ export default function CreateSignIn() {
   );
   const [date, setDate] = useState(
     new Date().toLocaleDateString("en-US", {
-      timeZone: "America/Los_Angeles"
+      timeZone: "America/Los_Angeles",
     })
   );
   const [time, setTime] = useState(
     new Date().toLocaleTimeString("en-US", {
-      timeZone: "America/Los_Angeles"
+      timeZone: "America/Los_Angeles",
     })
   );
 
@@ -69,44 +69,45 @@ export default function CreateSignIn() {
   useEffect(() => {
     axios
       .get("http://localhost:5000/subjectCollection/")
-      .then(response => {
+      .then((response) => {
         setSubjectCollection(response.data);
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error);
       });
   }, []);
 
-  const onChangeStudentId = e => {
+  const onChangeStudentId = (e) => {
     setStudentIdState(e.target.value);
   };
 
-  const onChangePurposeOfVisit = e => {
+  const onChangePurposeOfVisit = (e) => {
     setPurposeOfVisit(e.target.value);
   };
 
-  const onChangeSubjectSelected = e => {
+  const onChangeSubjectSelected = (e) => {
     setSubjectSelected(e.target.value);
   };
 
-  const onSubmit = e => {
+  const onSubmit = (e) => {
     const signIn = {
       studentId: studentIdState,
       date: date,
       time: time,
       purposeOfVisit: purposeOfVisit,
-      subject: subjectSelected
+      subject: subjectSelected,
     };
 
     console.log(signIn);
+    studentIdState.replace(/[^0-9a-zA-Z]+/gi, "");
 
     axios
       .post("http://localhost:5000/signInCollection/add", signIn)
-      .then(response => {
+      .then((response) => {
         ToastsStore.success("Thanks for signing in!");
         console.log(response.data);
       })
-      .catch(error => {
+      .catch((error) => {
         ToastsStore.error("Bad request to server!");
         console.log(error);
       });
@@ -114,7 +115,7 @@ export default function CreateSignIn() {
     setStudentIdState("");
     setPurposeOfVisit("");
     setSubjectSelected("");
-    window.setTimeout(function() {
+    window.setTimeout(function () {
       window.location.reload();
     }, 1000);
   };
@@ -138,8 +139,8 @@ export default function CreateSignIn() {
               required: true,
               pattern: {
                 value: /^[%][0-9]{9}[?]$|^[0-9]{9}$/,
-                message: "must be 9 digits or % + 9 digits + ?"
-              }
+                message: "must be 9 digits or % + 9 digits + ?",
+              },
             })}
             style={
               errors.studentId
@@ -147,6 +148,7 @@ export default function CreateSignIn() {
                 : undefined
             }
           />
+          {errors.studentId && errors.studentId.message}
         </div>
         <div className="form-group">
           <select
@@ -191,7 +193,7 @@ export default function CreateSignIn() {
             </option>
             {subjectCollection
               .sort((a, b) => a.name.localeCompare(b.name))
-              .map(subject => (
+              .map((subject) => (
                 <option key={subject.name} value={subject.description}>
                   {subject.name}
                 </option>

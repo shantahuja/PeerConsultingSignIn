@@ -91,7 +91,7 @@ export default function CreateSignIn() {
 
   const onSubmit = (e) => {
     const signIn = {
-      studentId: studentIdState,
+      studentId: studentIdState.replace(/[^0-9a-zA-Z]+/gi, ""),
       date: date,
       time: time,
       purposeOfVisit: purposeOfVisit,
@@ -99,7 +99,6 @@ export default function CreateSignIn() {
     };
 
     console.log(signIn);
-    studentIdState.replace(/[^0-9a-zA-Z]+/gi, "");
 
     axios
       .post("http://localhost:5000/signInCollection/add", signIn)
@@ -139,7 +138,7 @@ export default function CreateSignIn() {
               required: true,
               pattern: {
                 value: /^[%][0-9]{9}[?]$|^[0-9]{9}$/,
-                message: "must be 9 digits or % + 9 digits + ?",
+                message: "EX: 918918263 or %918928374?",
               },
             })}
             style={

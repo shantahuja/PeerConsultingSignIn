@@ -6,7 +6,6 @@ const cookieParser = require("cookie-parser");
 require("dotenv").config();
 
 const app = express();
-const port = process.env.PORT || 5000;
 
 app.use(cors());
 app.use(express.json());
@@ -19,10 +18,10 @@ mongoose
     useCreateIndex: true,
     useUnifiedTopology: true,
     user: "myUserAdmin",
-    pass: "OITAdmin"
+    pass: "OITAdmin",
   })
   .then(() => console.log("DB server connect"))
-  .catch(e => console.log("DB error", e));
+  .catch((e) => console.log("DB error", e));
 const connection = mongoose.connection;
 connection.once("open", () => {
   console.log("MongoDB database connection established successfully");
@@ -37,6 +36,4 @@ app.use("/signInCollection", signInCollectionRouter);
 app.use("/userAdminCollection", userAdminCollectionRouter);
 app.use("/subjectCollection", subjectCollectionRouter);
 
-app.listen(port, () => {
-  console.log(`Server is running on port: ${port}`);
-});
+module.exports = app;

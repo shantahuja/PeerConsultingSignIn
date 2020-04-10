@@ -7,12 +7,12 @@ export default function withAuth(ComponentToProtect) {
       super();
       this.state = {
         loading: true,
-        redirect: false
+        redirect: false,
       };
     }
     componentDidMount() {
       fetch("/checkToken")
-        .then(res => {
+        .then((res) => {
           if (res.status === 200) {
             this.setState({ loading: false });
           } else {
@@ -20,7 +20,7 @@ export default function withAuth(ComponentToProtect) {
             throw error;
           }
         })
-        .catch(err => {
+        .catch((err) => {
           console.error(err);
           this.setState({ loading: false, redirect: true });
         });

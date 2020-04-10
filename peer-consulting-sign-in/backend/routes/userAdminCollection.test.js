@@ -21,10 +21,6 @@ db.createUser(
 )
 */
 
-afterEach(async () => {
-  await userAdmin.deleteMany();
-});
-
 describe("UserAdmin Collection Routes", () => {
   it("Checks the Admin and Password entry against the admin document in database", async () => {
     const username = "myUserAdmin";

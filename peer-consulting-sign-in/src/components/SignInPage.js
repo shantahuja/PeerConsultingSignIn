@@ -129,6 +129,7 @@ export default function CreateSignIn() {
             placeholder="Student ID"
             name="studentId"
             id="studentId"
+            autoComplete="off"
             defaultValue={studentIdState}
             type="text"
             required

@@ -4,10 +4,9 @@ const app = require("../server");
 let Subject = require("../models/subject.model");
 
 describe("Subject Collection routes", () => {
+  var testSubject = { name: "TST", description: "Test Subject" };
+
   it("Populates the entirety of the subject collection", async () => {
-    // const res = await supertest(app).get("/subjectCollection/");
-    // const data = await res.json(subjectCollection);
-    // expect(Array.isArray(data)).toBe(true);
     return supertest(app)
       .get("/subjectCollection")
       .set("Accept", "application/json")
@@ -17,102 +16,37 @@ describe("Subject Collection routes", () => {
         expect(Array.isArray(response.body)).toBe(true);
       });
   });
+
   it("adds a subject to the collection", async () => {
-    // const res = await supertest(app).get("/subjectCollection/");
-    // const data = await res.json(subjectCollection);
-    // expect(Array.isArray(data)).toBe(true);
-
-    const name = "TST";
-    const description = "Test Subject";
-
     return supertest(app)
       .post("/subjectCollection/add")
-      .send({ name, description })
+      .send(testSubject)
       .expect("Content-Type", /json/)
       .expect(200);
   });
 
-  /*
-
   it("finds a subject in the collection", async () => {
-    // const res = await supertest(app).get("/subjectCollection/");
-    // const data = await res.json(subjectCollection);
-    // expect(Array.isArray(data)).toBe(true);
+    const subject = await Subject.findOne({ name: "TST" });
 
-    const name = "TST";
-    const description = "Test Subject";
-
-    return supertest(app)
-      .post("/subjectCollection/add")
-      .send({ name, description })
-      .expect(200);
+    expect(subject.name).toBe("TST");
+    expect(subject.description).toBe("Test Subject");
   });
-  */
 
-  /*
-  it("deletes a subject from the collection", async () => {
-    // const res = await supertest(app).get("/subjectCollection/");
-    // const data = await res.json(subjectCollection);
-    // expect(Array.isArray(data)).toBe(true);
-
-
-    return supertest(app)
-      .get("/subjectCollection/add")
-      .send({ name, description })
-      .expect(200);
-  });
-  */
-
-  /*
   it("updates a subject from the collection", async () => {
-    // const res = await supertest(app).get("/subjectCollection/");
-    // const data = await res.json(subjectCollection);
-    // expect(Array.isArray(data)).toBe(true);
+    const filter = { name: "TST" };
+    const update = { description: "Test Subject Update" };
 
+    await Subject.findOneAndUpdate(filter, update);
 
-    return supertest(app)
-      .get("/subjectCollection/add")
-      .send({ name, description })
-      .expect(200);
+    const subject = await Subject.findOne({
+      description: "Test Subject Update",
+    });
+
+    expect(subject.name).toBe("TST");
+    expect(subject.description).toBe("Test Subject Update");
   });
-  */
+
+  it("deletes a subject from the collection", async () => {
+    await Subject.findOneAndDelete({ name: "TST" });
+  });
 });
-
-/* router.route("/add").post((req, res) => {
-  const name = req.body.name;
-  const description = req.body.description;
-
-  const newSubject = new Subject({
-    name,
-    description
-  });
-
-    newSubject
-    .save()
-    .then(() => res.json("Subject added!"))
-    .catch(err => res.status(400).json("Error: " + err));
-  */
-
-/*
-return supertest(app)
-      .get('/users')
-      .set('Accept', 'application/json')
-      .expect('Content-Type', /json/)
-      .expect(200)
-      .then(response => {
-          assert(response.body.email, 'foo@bar.com')
-      })
-  });
-*/
-/* 
-  useEffect(() => {
-    axios
-      .get("http://localhost:5000/subjectCollection/")
-      .then((response) => {
-        setSubjectCollection(response.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, []);
-  */

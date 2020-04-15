@@ -25,20 +25,6 @@ router.route("/add").post((req, res) => {
     .catch((err) => res.status(400).json("Error: " + err));
 });
 
-router.route("/:id").get((req, res) => {
-  userAdmin
-    .findById(req.params.id)
-    .then((subject) => res.json(subject))
-    .catch((err) => res.status(400).json("Error: " + err));
-});
-
-router.route("/:id").delete((req, res) => {
-  userAdmin
-    .findByIdAndDelete(req.params.id)
-    .then(() => res.json("Subject deleted."))
-    .catch((err) => res.status(400).json("Error: " + err));
-});
-
 router.route("/authenticate").post((req, res) => {
   const username = req.body.username;
   const password = req.body.password;
@@ -66,7 +52,7 @@ router.route("/authenticate").post((req, res) => {
           // Issue token
           const payload = { userAdmin };
           const token = jwt.sign(payload, secret, {
-            expiresIn: "1h",
+            expiresIn: "5m",
           });
           res.cookie("token", token, { httpOnly: true }).sendStatus(200);
         }

@@ -15,7 +15,7 @@ export default class Login extends Component {
     this.state = {
       username: "",
       password: "",
-      loggedIn
+      loggedIn,
     };
 
     this.onChange = this.onChange.bind(this);
@@ -24,7 +24,7 @@ export default class Login extends Component {
 
   onChange(e) {
     this.setState({
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
   }
 
@@ -34,12 +34,12 @@ export default class Login extends Component {
 
     const login = {
       username: username,
-      password: password
+      password: password,
     };
 
     axios
       .post("http://localhost:5000/userAdminCollection/authenticate", login)
-      .then(response => {
+      .then((response) => {
         console.log(response.data);
         this.props.history.push("/");
         localStorage.setItem("token", "999888777");
@@ -47,12 +47,12 @@ export default class Login extends Component {
           "Thanks for logging in, administrator!\nYour admin options should show momentarily."
         );
       })
-      .catch(error => {
+      .catch((error) => {
         ToastsStore.error("Error logging in! ");
         console.log(error);
       });
 
-    window.setTimeout(function() {
+    window.setTimeout(function () {
       window.location.reload();
     }, 2000);
   }
@@ -69,6 +69,7 @@ export default class Login extends Component {
             type="text"
             placeholder="username"
             name="username"
+            autoComplete="off"
             value={this.state.username}
             onChange={this.onChange}
           />

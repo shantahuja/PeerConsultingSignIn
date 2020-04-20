@@ -52,7 +52,7 @@ router.route("/authenticate").post((req, res) => {
           // Issue token
           const payload = { userAdmin };
           const token = jwt.sign(payload, secret, {
-            expiresIn: "1h",
+            expiresIn: "5m",
           });
           res.cookie("token", token, { httpOnly: true }).sendStatus(200);
         }

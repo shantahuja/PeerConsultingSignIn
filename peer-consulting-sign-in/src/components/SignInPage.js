@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useForm } from "react-hook-form";
 import { ToastsContainer, ToastsStore } from "react-toasts";
+import "../App.css";
+import "../index.css";
 
 const useStateWithLocalStorage = (localStorageKey) => {
   const [
@@ -121,96 +123,99 @@ export default function CreateSignIn() {
 
   return (
     <div>
-      <h3>Sign In!</h3>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="form-group">
-          <input
-            autoFocus={true}
-            placeholder="Student ID"
-            name="studentId"
-            id="studentId"
-            autoComplete="off"
-            defaultValue={studentIdState}
-            type="text"
-            required
-            onChange={onChangeStudentId}
-            className="form-control"
-            ref={register({
-              required: true,
-              pattern: {
-                value: /^[%][0-9]{9}[?]$|^[0-9]{9}$/,
-                message: "EX: 918918263 or %918928374?",
-              },
-            })}
-            style={
-              errors.studentId
-                ? { borderLeft: "solid thick #e75480" }
-                : undefined
-            }
-          />
-          {errors.studentId && errors.studentId.message}
-        </div>
-        <div className="form-group">
-          <select
-            name="purposeOfVisit"
-            type="text"
-            required
-            className="form-control"
-            value={purposeOfVisit}
-            onChange={onChangePurposeOfVisit}
-            ref={register({ required: true })}
-            style={
-              errors.purposeOfVisit
-                ? { borderLeft: "solid thick #e75480" }
-                : undefined
-            }
-          >
-            <option disabled={true} value="">
-              Purpose of visit?
-            </option>
-            <option value="Self-study">Self-study</option>
-            <option value="Tutor help">Tutor help</option>
-            <option value="Both">Both</option>
-          </select>
-        </div>
-        <div className="form-group">
-          <select
-            name="subjectSelected"
-            type="text"
-            required
-            className="form-control"
-            value={subjectSelected}
-            onChange={onChangeSubjectSelected}
-            ref={register({ required: true })}
-            style={
-              errors.subjectSelected
-                ? { borderLeft: "solid thick #e75480" }
-                : undefined
-            }
-          >
-            <option disabled={true} value="">
-              Subject area?
-            </option>
-            {subjectCollection
-              .sort((a, b) => a.name.localeCompare(b.name))
-              .map((subject) => (
-                <option key={subject.name} value={subject.description}>
-                  {subject.name}
-                </option>
-              ))}
-          </select>
-        </div>
-        <div className="form-group">
-          <button
-            type="submit"
-            value="Create Sign-In"
-            className="btn btn-primary mt-3"
-          >
-            Sign-In!
-          </button>
-        </div>
-        <ToastsContainer store={ToastsStore} position={"top_center"} />
-      </form>
+      <body class="OregonTech">
+        <h3 class="container center_divSignInTitle">Sign In</h3>
+        <br />
+        <form onSubmit={handleSubmit(onSubmit)} class="container center_div">
+          <div className="form-group">
+            <input
+              autoFocus={true}
+              placeholder="Student ID"
+              name="studentId"
+              id="studentId"
+              autoComplete="off"
+              defaultValue={studentIdState}
+              type="text"
+              required
+              onChange={onChangeStudentId}
+              className="form-control"
+              ref={register({
+                required: true,
+                pattern: {
+                  value: /^[%][0-9]{9}[?]$|^[0-9]{9}$/,
+                  message: "EX: 918918263 or %918928374?",
+                },
+              })}
+              style={
+                errors.studentId
+                  ? { borderLeft: "solid thick #e75480" }
+                  : undefined
+              }
+            />
+            {errors.studentId && errors.studentId.message}
+          </div>
+          <div className="form-group">
+            <select
+              name="purposeOfVisit"
+              type="text"
+              required
+              className="form-control"
+              value={purposeOfVisit}
+              onChange={onChangePurposeOfVisit}
+              ref={register({ required: true })}
+              style={
+                errors.purposeOfVisit
+                  ? { borderLeft: "solid thick #e75480" }
+                  : undefined
+              }
+            >
+              <option disabled={true} value="">
+                Purpose of visit?
+              </option>
+              <option value="Self-study">Self-study</option>
+              <option value="Tutor help">Tutor help</option>
+              <option value="Both">Both</option>
+            </select>
+          </div>
+          <div className="form-group">
+            <select
+              name="subjectSelected"
+              type="text"
+              required
+              className="form-control"
+              value={subjectSelected}
+              onChange={onChangeSubjectSelected}
+              ref={register({ required: true })}
+              style={
+                errors.subjectSelected
+                  ? { borderLeft: "solid thick #e75480" }
+                  : undefined
+              }
+            >
+              <option disabled={true} value="">
+                Subject area?
+              </option>
+              {subjectCollection
+                .sort((a, b) => a.name.localeCompare(b.name))
+                .map((subject) => (
+                  <option key={subject.name} value={subject.description}>
+                    {subject.name}
+                  </option>
+                ))}
+            </select>
+          </div>
+          <div className="form-group" class="container center_divSignInButton">
+            <button
+              type="submit"
+              value="Create Sign-In"
+              className="btn btn-primary mt-3"
+            >
+              Sign In
+            </button>
+          </div>
+          <ToastsContainer store={ToastsStore} position={"top_center"} />
+        </form>
+      </body>
     </div>
   );
 }

@@ -1,6 +1,8 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
+import "./index.css";
+import "./App.css";
 
 import Navbar from "./components/Navbar";
 import SignInPage from "./components/SignInPage";
@@ -19,30 +21,36 @@ function App() {
     loggedIn = false;
   }
   return (
-    <Router>
-      <div className="container">
-        <Navbar />
-        <br />
-        <Route path="/" exact component={SignInPage} />
-        {loggedIn ? (
-          <Route path="/signinlist" exact component={withAuth(SignInList)} />
-        ) : (
-          <Redirect to="/" />
-        )}
-        {loggedIn ? (
-          <Route path="/subjectlist" exact component={withAuth(SubjectList)} />
-        ) : (
-          <Redirect to="/" />
-        )}
-        {loggedIn ? (
-          <Route path="/edit/:id" exact component={withAuth(EditSubject)} />
-        ) : (
-          <Redirect to="/" />
-        )}
-        <Route path="/login" exact component={Login} />
-        <Route path="/logout" exact component={Logout} />
-      </div>
-    </Router>
+    <html>
+      <Router>
+        <div className="container">
+          <Navbar />
+          <br />
+          <Route path="/" exact component={SignInPage} />
+          {loggedIn ? (
+            <Route path="/signinlist" exact component={withAuth(SignInList)} />
+          ) : (
+            <Redirect to="/" />
+          )}
+          {loggedIn ? (
+            <Route
+              path="/subjectlist"
+              exact
+              component={withAuth(SubjectList)}
+            />
+          ) : (
+            <Redirect to="/" />
+          )}
+          {loggedIn ? (
+            <Route path="/edit/:id" exact component={withAuth(EditSubject)} />
+          ) : (
+            <Redirect to="/" />
+          )}
+          <Route path="/login" exact component={Login} />
+          <Route path="/logout" exact component={Logout} />
+        </div>
+      </Router>
+    </html>
   );
 }
 

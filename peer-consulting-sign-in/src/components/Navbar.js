@@ -1,5 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import "../App.css";
+import logo from "../ot-logo.png";
 
 function Navbar() {
   const token = localStorage.getItem("token");
@@ -12,9 +14,12 @@ function Navbar() {
   console.log(loggedIn);
 
   return (
-    <nav className="navbar navbar-dark bg-dark navbar-expand-lg ">
+    <nav
+      class="color-nav"
+      className="navbar navbar-dark bg-dark navbar-expand-lg "
+    >
       <Link to="/" className="navbar-brand">
-        Peer Consulting Sign-In
+        <img src={logo} height="35px"></img>
       </Link>
       <div className="collapse navbar-collapse justify-content-between">
         <ul className="navbar-nav mr-auto">

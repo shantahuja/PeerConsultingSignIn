@@ -48,3 +48,7 @@ html {
 td {
   color: white;
 }
+
+table {
+  border: 1px solid white;
+}

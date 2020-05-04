@@ -36,3 +36,51 @@
     transform: rotate(360deg);
   }
 }
+
+.center_div {
+  margin: 0 auto;
+  width: 30%; /* value of your choice which suits your alignment */
+}
+
+.center_divSignInTitle {
+  margin: 0 auto;
+  width: 12%; /* value of your choice which suits your alignment */
+}
+
+.center_divLoginTitle {
+  margin: 0 auto;
+  width: 10%; /* value of your choice which suits your alignment */
+}
+
+.center_divCreateSubjectTitle {
+  margin: 0 auto;
+  width: 26%; /* value of your choice which suits your alignment */
+}
+
+.center_divSignInButton {
+  margin: 0 auto;
+  width: 38%; /* value of your choice which suits your alignment */
+}
+
+.center_divLogInButton {
+  margin: 0 auto;
+  width: 35%; /* value of your choice which suits your alignment */
+}
+
+.center_divCreateSubjectButton {
+  margin: 0 auto;
+  width: 55%; /* value of your choice which suits your alignment */
+}
+
+.center_divNavbar {
+  margin: 0 auto;
+  width: 50%; /* value of your choice which suits your alignment */
+}
+
+.logo {
+  background-image: url("ot-logo.png");
+}
+
+.navbar {
+  background-color: #003767 !important;
+}

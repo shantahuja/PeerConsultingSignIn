@@ -4,7 +4,7 @@ import CsvDownloader from "react-csv-downloader";
 import { Redirect } from "react-router-dom";
 import { ToastsStore, ToastsContainer } from "react-toasts";
 
-const SignIn = props => (
+const SignIn = (props) => (
   <tr>
     <td>{props.signIn.studentId}</td>
     <td>{props.signIn.date}</td>
@@ -38,28 +38,30 @@ export default class SignInList extends Component {
 
     this.state = {
       loggedIn,
-      signInCollection: []
+      signInCollection: [],
     };
   }
 
   componentDidMount() {
     axios
       .get("http://localhost:5000/signInCollection/")
-      .then(res => {
+      .then((res) => {
         this.setState({ signInCollection: res.data });
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error);
       });
   }
 
   deleteSignIn(id) {
-    axios.delete("http://localhost:5000/signInCollection/" + id).then(res => {
+    axios.delete("http://localhost:5000/signInCollection/" + id).then((res) => {
       ToastsStore.success("Sign-in deleted!");
       console.log(res.data);
     });
     this.setState({
-      signInCollection: this.state.signInCollection.filter(el => el._id !== id)
+      signInCollection: this.state.signInCollection.filter(
+        (el) => el._id !== id
+      ),
     });
   }
 
@@ -67,14 +69,14 @@ export default class SignInList extends Component {
     axios.delete("http://localhost:5000/signInCollection/deleteAll/");
     axios
       .delete("http://localhost:5000/signInCollection/deleteAll/")
-      .then(res => {
+      .then((res) => {
         ToastsStore.success("All Sign-ins deleted!");
       });
     window.location.reload();
   }
 
   signInCollection() {
-    return this.state.signInCollection.map(currentSignIn => {
+    return this.state.signInCollection.map((currentSignIn) => {
       return (
         <SignIn
           signIn={currentSignIn}
@@ -92,69 +94,71 @@ export default class SignInList extends Component {
     const columns = [
       {
         id: "studentId",
-        displayName: "Student ID"
+        displayName: "Student ID",
       },
       {
         id: "date",
-        displayName: "Date"
+        displayName: "Date",
       },
       {
         id: "time",
-        displayName: "Time"
+        displayName: "Time",
       },
       {
         id: "purposeOfVisit",
-        displayName: "Purpose of Visit"
+        displayName: "Purpose of Visit",
       },
       {
         id: "subject",
-        displayName: "Subject"
-      }
+        displayName: "Subject",
+      },
     ];
     console.log(this.signInCollection());
 
     const datas = this.state.signInCollection;
 
     return (
-      <div>
-        <h3>Logged Sign-Ins</h3>
-        <table className="table">
-          <thead className="thead-light">
-            <tr>
-              <th>Student ID</th>
-              <th>Date</th>
-              <th>Time</th>
-              <th>Purpose Of Visit</th>
-              <th>Subject</th>
-            </tr>
-          </thead>
-          <tbody>{this.signInCollection()}</tbody>
-        </table>
-        <div className="form-group row">
-          <div className="col-md-2">
-            <CsvDownloader
-              type="button"
-              id="btnDownload"
-              filename="myfile"
-              separator=";"
-              columns={columns}
-              datas={datas}
-              text="DOWNLOAD"
-            />
+      <div class="SignIns">
+        <div class="OregonTech">
+          <h3>Logged Sign-Ins</h3>
+          <table className="table">
+            <thead className="thead-light">
+              <tr>
+                <th>Student ID</th>
+                <th>Date</th>
+                <th>Time</th>
+                <th>Purpose Of Visit</th>
+                <th>Subject</th>
+              </tr>
+            </thead>
+            <tbody>{this.signInCollection()}</tbody>
+          </table>
+          <div className="form-group row">
+            <div className="col-md-2">
+              <CsvDownloader
+                type="button"
+                id="btnDownload"
+                filename="myfile"
+                separator=";"
+                columns={columns}
+                datas={datas}
+                text="DOWNLOAD"
+              />
+            </div>
+            <div className="col-md-2">
+              <button
+                type="button"
+                id="btnDeleteAll"
+                onClick={() => {
+                  this.deleteSignInCollection();
+                }}
+              >
+                Delete All
+              </button>
+            </div>
           </div>
-          <div className="col-md-2">
-            <button
-              type="button"
-              id="btnDeleteAll"
-              onClick={() => {
-                this.deleteSignInCollection();
-              }}
-            >
-              Delete All
-            </button>
-          </div>
+          <ToastsContainer store={ToastsStore} position={"top_center"} />
         </div>
-        <ToastsContainer store={ToastsStore} position={"top_center"} />
       </div>
     );
   }

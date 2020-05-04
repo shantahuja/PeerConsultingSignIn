@@ -5,13 +5,13 @@ export default class Logout extends Component {
   constructor(props) {
     super(props);
     localStorage.removeItem("token");
-    window.setTimeout(function() {
+    window.setTimeout(function () {
       window.location.reload();
     }, 1000);
   }
   render() {
     return (
-      <div>
+      <div class="SignIns">
         <h1>You're logged out.</h1>
         <Link to="/">Go back to sign-in page.</Link>
       </div>

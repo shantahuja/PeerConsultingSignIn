@@ -1,7 +1,9 @@
 import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
 import axios from "axios";
+import { useForm } from "react-hook-form";
 import { ToastsContainer, ToastsStore } from "react-toasts";
+import "../App.css";
 
 export default class Login extends Component {
   constructor(props) {
@@ -61,29 +63,42 @@ export default class Login extends Component {
       return <Redirect to="/admin" />;
     }
     return (
-      <div>
-        <h1>Login</h1>
-
-        <form onSubmit={this.submitForm}>
-          <input
-            type="text"
-            placeholder="username"
-            name="username"
-            autoComplete="off"
-            value={this.state.username}
-            onChange={this.onChange}
-          />
-          <br />
-          <input
-            type="password"
-            placeholder="password"
-            name="password"
-            value={this.state.password}
-            onChange={this.onChange}
-          />
-          <br />
-          <input type="submit" />
-          <br />
+      <div class="SignIns">
+        <h3 class="container center_divLoginTitle">Login</h3>
+        <br />
+        <form onSubmit={this.submitForm} class="container center_div">
+          <div className="form-group">
+            <input
+              className="form-control"
+              autoFocus={true}
+              type="text"
+              placeholder="username"
+              name="username"
+              autoComplete="off"
+              value={this.state.username}
+              onChange={this.onChange}
+            />
+          </div>
+          <div className="form-group">
+            <input
+              className="form-control"
+              type="password"
+              placeholder="password"
+              name="password"
+              value={this.state.password}
+              onChange={this.onChange}
+            />
+            <br />
+            <div className="form-group" class="container center_divLogInButton">
+              <button
+                type="submit"
+                value="Create Sign-In"
+                className="btn btn-primary mt-3"
+              >
+                Login
+              </button>
+            </div>
+          </div>
         </form>
         <ToastsContainer store={ToastsStore} position={"top_center"} />
       </div>

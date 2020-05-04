@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 import { ToastsContainer, ToastsStore } from "react-toasts";
 
-const Subject = props => (
+const Subject = (props) => (
   <tr>
     <td>{props.subject.name}</td>
     <td>{props.subject.description}</td>
@@ -30,46 +30,46 @@ export default function SubjectList() {
   useEffect(() => {
     axios
       .get("http://localhost:5000/subjectCollection/")
-      .then(response => {
+      .then((response) => {
         setSubjectCollection(response.data);
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error);
       });
   }, []);
 
-  const onChangeNewName = e => {
+  const onChangeNewName = (e) => {
     const name = e.target.value;
     setNameState(name);
   };
 
-  const onChangeNewDescription = e => {
+  const onChangeNewDescription = (e) => {
     const description = e.target.value;
     setDescriptionState(description);
   };
 
-  const onSubmit = e => {
+  const onSubmit = (e) => {
     const subject = {
       name: nameState,
-      description: descriptionState
+      description: descriptionState,
     };
 
     console.log(subject);
 
     axios
       .post("http://localhost:5000/subjectCollection/add", subject)
-      .then(response => {
+      .then((response) => {
         ToastsStore.success("Subject added!");
         console.log(response.data);
       })
-      .catch(error => {
+      .catch((error) => {
         ToastsStore.error("Bad request to server!");
         console.log(error);
       });
 
     setNameState("");
     setDescriptionState("");
-    window.setTimeout(function() {
+    window.setTimeout(function () {
       window.location.reload();
     }, 2000);
   };
@@ -77,18 +77,18 @@ export default function SubjectList() {
   function deleteSubject(id) {
     axios
       .delete("http://localhost:5000/subjectCollection/" + id)
-      .then(response => {
+      .then((response) => {
         ToastsStore.success("Subject deleted!");
         console.log(response.data);
       });
 
-    setSubjectCollection(subjectCollection.filter(el => el._id !== id));
+    setSubjectCollection(subjectCollection.filter((el) => el._id !== id));
   }
 
   function subjectList() {
     return subjectCollection
       .sort((a, b) => a.name.localeCompare(b.name))
-      .map(currentsubject => {
+      .map((currentsubject) => {
         return (
           <Subject
             subject={currentsubject}
@@ -100,9 +100,10 @@ export default function SubjectList() {
   }
 
   return (
-    <div>
-      <h3>Create New Subject</h3>
-      <form onSubmit={onSubmit}>
+    <div class="SignIns">
+      <h3 class="container center_divCreateSubjectTitle">Create New Subject</h3>
+      <br />
+      <form onSubmit={onSubmit} class="container center_div">
         <div className="form-group">
           <label>Subject: </label>
           <input
@@ -122,7 +123,10 @@ export default function SubjectList() {
             onChange={onChangeNewDescription}
           />
         </div>
-        <div className="form-group">
+        <div
+          className="form-group"
+          class="container center_divCreateSubjectButton"
+        >
           <input
             type="submit"
             value="Create Subject"
@@ -132,16 +136,18 @@ export default function SubjectList() {
         <ToastsContainer store={ToastsStore} position={"top_center"} />
       </form>
       <br></br>
-      <h3>Subject List</h3>
-      <table className="table">
-        <thead className="thead-light">
-          <tr>
-            <th>Name</th>
-            <th>Description</th>
-          </tr>
-        </thead>
-        <tbody>{subjectList()}</tbody>
-      </table>
+      <div class="SignIns">
+        <h3>Subject List</h3>
+        <table className="table">
+          <thead className="thead-light">
+            <tr>
+              <th>Name</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>{subjectList()}</tbody>
+        </table>
+      </div>
     </div>
   );
 }

@@ -11,7 +11,7 @@ import SubjectList from "./components/SubjectList";
 import EditSubject from "./components/EditSubject";
 import Login from "./components/Login";
 import Logout from "./components/Logout";
-import withAuth from "./components/WithAuth";
+// import withAuth from "./components/WithAuth";
 
 function App() {
   const token = localStorage.getItem("token");
@@ -28,21 +28,17 @@ function App() {
           <br />
           <Route path="/" exact component={SignInPage} />
           {loggedIn ? (
-            <Route path="/signinlist" exact component={withAuth(SignInList)} />
+            <Route path="/signinlist" exact component={SignInList} />
           ) : (
             <Redirect to="/" />
           )}
           {loggedIn ? (
-            <Route
-              path="/subjectlist"
-              exact
-              component={withAuth(SubjectList)}
-            />
+            <Route path="/subjectlist" exact component={SubjectList} />
           ) : (
             <Redirect to="/" />
           )}
           {loggedIn ? (
-            <Route path="/edit/:id" exact component={withAuth(EditSubject)} />
+            <Route path="/edit/:id" exact component={EditSubject} />
           ) : (
             <Redirect to="/" />
           )}

@@ -61,12 +61,12 @@ router.route("/authenticate").post((req, res) => {
   });
 });
 
-router.route("/secret", withAuth).get((req, res) => {
-  res.send("The password is potato");
-});
+// router.route("/secret", withAuth).get((req, res) => {
+//   res.send("The password is potato");
+// });
 
-router.route("/checkToken", withAuth).get((req, res) => {
-  res.sendStatus(200);
-});
+// router.route("/checkToken", withAuth).get((req, res) => {
+//   res.sendStatus(200);
+// });
 
 module.exports = router;

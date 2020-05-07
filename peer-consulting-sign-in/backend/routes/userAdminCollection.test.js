@@ -1,7 +1,7 @@
 const router = require("./userAdminCollection.js");
 const supertest = require("supertest");
 const app = require("../server");
-const withAuth = require("../middleware");
+// const withAuth = require("../middleware");
 const userAdmin = require("../models/userAdmin.model");
 
 describe("UserAdmin Collection Routes", () => {
@@ -42,20 +42,20 @@ describe("UserAdmin Collection Routes", () => {
       .expect(200);
   });
 
-  it("gives the user the secret message", async () => {
-    return supertest(app)
-      .get("/userAdminCollection/secret", withAuth)
-      .expect(200)
-      .then((response) => {
-        expect(response.body).toStrictEqual({});
-      });
-  });
+  // it("gives the user the secret message", async () => {
+  //   return supertest(app)
+  //     .get("/userAdminCollection/secret", withAuth)
+  //     .expect(200)
+  //     .then((response) => {
+  //       expect(response.body).toStrictEqual({});
+  //     });
+  // });
 
-  it("checks if the token is valid", async () => {
-    return supertest(app)
-      .get("/userAdminCollection/checkToken", withAuth)
-      .expect(200);
-  });
+  // it("checks if the token is valid", async () => {
+  //   return supertest(app)
+  //     .get("/userAdminCollection/checkToken", withAuth)
+  //     .expect(200);
+  // });
 
   it("deletes the admin from the collection", async () => {
     await userAdmin.findOneAndDelete({ username: "TST" });

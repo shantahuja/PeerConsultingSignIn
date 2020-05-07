@@ -57,6 +57,11 @@
   width: 26%; /* value of your choice which suits your alignment */
 }
 
+.center_divEditSubjectTitle {
+  margin: 0 auto;
+  width: 17%; /* value of your choice which suits your alignment */
+}
+
 .center_divSignInButton {
   margin: 0 auto;
   width: 38%; /* value of your choice which suits your alignment */
@@ -70,6 +75,11 @@
 .center_divCreateSubjectButton {
   margin: 0 auto;
   width: 55%; /* value of your choice which suits your alignment */
+}
+
+.center_divEditSubjectButton {
+  margin: 0 auto;
+  width: 50%; /* value of your choice which suits your alignment */
 }
 
 .center_divNavbar {

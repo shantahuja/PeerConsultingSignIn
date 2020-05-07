@@ -11,48 +11,48 @@ export default function EditSubject() {
   useEffect(() => {
     axios
       .get("http://localhost:5000/subjectCollection/" + id)
-      .then(response => {
+      .then((response) => {
         setNewNameState(response.data.name);
         setNewDescriptionState(response.data.description);
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error);
       });
   }, [id]);
 
-  const onChangeName = e => {
+  const onChangeName = (e) => {
     const name = e.target.value;
     setNewNameState(name);
   };
 
-  const onChangeDescription = e => {
+  const onChangeDescription = (e) => {
     const description = e.target.value;
     setNewDescriptionState(description);
   };
 
-  const onSubmit = e => {
+  const onSubmit = (e) => {
     const subject = {
       name: newNameState,
-      description: newDescriptionState
+      description: newDescriptionState,
     };
 
     axios
       .post("http://localhost:5000/subjectCollection/update/" + id, subject)
-      .then(response => {
+      .then((response) => {
         console.log(response.data);
         ToastsStore.success("Subject Successfully Edited.");
         window.location.assign("http://localhost:3000/subjectList");
       })
-      .catch(error => {
+      .catch((error) => {
         ToastsStore.error("Bad request to server!");
         console.log(error);
       });
   };
 
   return (
-    <div>
-      <h3>Edit Subject</h3>
-      <form onSubmit={onSubmit}>
+    <div class="SignIns">
+      <h3 class="container center_divEditSubjectTitle">Edit Subject</h3>
+      <form onSubmit={onSubmit} class="container center_div">
         <div className="form-group">
           <label>Name: </label>
           <input
@@ -73,7 +73,10 @@ export default function EditSubject() {
             onChange={onChangeDescription}
           />
         </div>
-        <div className="form-group">
+        <div
+          className="form-group"
+          class="container center_divEditSubjectButton"
+        >
           <input
             type="submit"
             value="Edit Subject"

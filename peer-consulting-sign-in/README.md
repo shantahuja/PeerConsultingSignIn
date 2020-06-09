@@ -8,7 +8,7 @@ https://www.mongodb.com/download-center/community
 4) also, please install node.js. this is needed so the system can recognize the .bat file commands to start the application. again, use all default settings when installing.
     https://nodejs.org/en/download/
 
-5) At this point, you can clone the repository. Please run the "FIRST INSTALL - peer consulting sign-in" bat file.
+5) At this point, you can clone the repository. Please run the "FIRST INSTALL BACKEND/FRONTEND - peer consulting sign-in" bat files.
 6) then run the "start peer consulting sign-in.bat" file.
 
 create an admin:

@@ -1,17 +1,14 @@
-BEFORE CLONING, be sure to install MongoDB Community Edition.
+1) BEFORE CLONING, be sure to install MongoDB Community Edition.
 https://www.mongodb.com/download-center/community
-You can also check if MongoDB is running as a service(windows, mac, linux)
-after this, please start mongod.exe in the bin folder of the MongoDB folder.
-at this point, please check your services. Mongo DB should be running as a service.
 
-also, please install node.js. this is needed so the system can recognize the .bat file commands to start the application.
-https://nodejs.org/en/download/
+2) after this, please start mongod.exe in the bin folder of the MongoDB folder.
+3) at this point, please check your services. Mongo DB should be running as a service.
 
-At this point, you can run the "FIRST INSTALL - peer consulting sign-in" bat file.
-then run the "start peer consulting sign-in.bat" file.
+4) also, please install node.js. this is needed so the system can recognize the .bat file commands to start the application.
+    https://nodejs.org/en/download/
 
-click the "start peer consulting sign-in.bat," if this is a first time run,
-<what happens here>
+5) At this point, you can run the "FIRST INSTALL - peer consulting sign-in" bat file.
+6) then run the "start peer consulting sign-in.bat" file.
 
 create-react-app boiler plate information
 ------------------------------------------------------------------------------------------------------------

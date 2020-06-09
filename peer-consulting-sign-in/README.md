@@ -1,3 +1,12 @@
+Before running, be sure to install MongoDB Community Edition.
+https://docs.mongodb.com/manual/administration/install-community/
+You can also check if MongoDB is running as a service(windows, mac, linux)
+
+click the "start peer consulting sign-in.bat," if this is a first time run,
+<what happens here>
+
+create-react-app boiler plate information
+------------------------------------------------------------------------------------------------------------
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts

@@ -1,15 +1,24 @@
-1) BEFORE CLONING, be sure to install MongoDB Community Edition.
+1) BEFORE CLONING, be sure to install MongoDB Community Edition. use all default settings when installing.
 https://www.mongodb.com/download-center/community
 
 2) after this, please start mongod.exe in the bin folder of the MongoDB folder.
 3) at this point, please check your services. Mongo DB should be running as a service.
  - RESTART your computer. please check that Mongo DB is still running as a service (should start with computer)
 
-4) also, please install node.js. this is needed so the system can recognize the .bat file commands to start the application.
+4) also, please install node.js. this is needed so the system can recognize the .bat file commands to start the application. again, use all default settings when installing.
     https://nodejs.org/en/download/
 
-5) At this point, you can run the "FIRST INSTALL - peer consulting sign-in" bat file.
+5) At this point, you can clone the repository. Please run the "FIRST INSTALL - peer consulting sign-in" bat file.
 6) then run the "start peer consulting sign-in.bat" file.
+
+create an admin:
+1) use any REST API client, while application is running
+2) POST "http://localhost:5000/userAdminCollection/add"
+3) body is:
+{
+	"username": "<your username here>",
+	"password": "<your password here>"
+}
 
 create-react-app boiler plate information
 ------------------------------------------------------------------------------------------------------------

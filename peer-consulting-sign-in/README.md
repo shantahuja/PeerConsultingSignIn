@@ -3,6 +3,7 @@ https://www.mongodb.com/download-center/community
 
 2) after this, please start mongod.exe in the bin folder of the MongoDB folder.
 3) at this point, please check your services. Mongo DB should be running as a service.
+ - RESTART your computer. please check that Mongo DB is still running as a service (should start with computer)
 
 4) also, please install node.js. this is needed so the system can recognize the .bat file commands to start the application.
     https://nodejs.org/en/download/

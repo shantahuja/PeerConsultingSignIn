@@ -5,6 +5,30 @@ https://www.mongodb.com/download-center/community
  - C:\Program Files\MongoDB\Server\4.2\bin
 3) at this point, please check your services. Mongo DB should be running as a service.
  - RESTART your computer. please check that Mongo DB is still running as a service (should start with computer)
+ - after restarting your computer, you must add an admin user, as this program utilizes authentication to access database
+ ```
+> use test
+switched to db test
+> use admin
+switched to db admin
+> db.createUser(
+... {
+... user: "myUserAdmin",
+... pwd: "OITAdmin",
+... roles: [ { role: "userAdminAnyDatabase", db: "admin" }, "readWriteAnyDatabase" ]
+... }
+... )
+Successfully added user: {
+        "user" : "myUserAdmin",
+        "roles" : [
+                {
+                        "role" : "userAdminAnyDatabase",
+                        "db" : "admin"
+                },
+                "readWriteAnyDatabase"
+        ]
+}
+```
 
 4) also, please install node.js. this is needed so the system can recognize the .bat file commands to start the application. again, use all default settings when installing.
     https://nodejs.org/en/download/

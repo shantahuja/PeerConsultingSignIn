@@ -1,9 +1,9 @@
 application purpose 
 -------------------------
-This application is built per OIT Portland-Metro customer requirements of IT department and Peer Consulting (Tutoring) Department. 
-This application is purposed to allow for an easy way for OIT students to sign into the Peer consulting center, and for the manager to extract the sign-in data easily.
-This application was built to be on brand with OIT design.
-please email me if you have any questions: shantahuja@gmail.com
+ - This application is built per OIT Portland-Metro customer requirements of IT department and Peer Consulting (Tutoring) Department. 
+ - This application is purposed to allow for an easy way for OIT students to sign into the Peer consulting center, and for the manager to extract the sign-in data easily.
+ - This application was built to be on brand with OIT design.
+ - please email me if you have any questions: shantahuja@gmail.com
 
 utilize application
 ---------------------------------------------------------------------------------------------------
@@ -15,7 +15,7 @@ https://www.mongodb.com/download-center/community
 3) at this point, please check your services. Mongo DB should be running as a service.
  - RESTART your computer. please check that Mongo DB is still running as a service (should start with computer)
  - after restarting your computer, you must add an admin user, as this program utilizes authentication to access database. navigate to the bin folder, and open "mongo.exe" (different from "mongod.exe")!
-db.createUser({
+ - db.createUser({
 	user: "myUserAdmin",
 	pwd: "OITAdmin",
 	roles: [ { role: "userAdminAnyDatabase", db: "admin" }, "readWriteAnyDatabase" ]

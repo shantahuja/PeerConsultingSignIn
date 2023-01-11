@@ -16,7 +16,7 @@
     "concurrently": "^5.2.0",
     "cookie-parser": "^1.4.5",
     "jquery": "^3.5.1",
-    "jsonwebtoken": "^8.5.1",
+    "jsonwebtoken": "^9.0.0",
     "react": "^16.13.1",
     "react-bootstrap": "^1.0.0",
     "react-csv-downloader": "^1.6.0",
